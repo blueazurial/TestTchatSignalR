@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Tchat Addiction-Game";
+}
+
+
+@section scripts{
+    @*Pourrait être dans un Bundle*@
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+    @*Ne peux pas être dans un Bundle*@
+    <script src="~/r2d2/hubs"></script>
+
+    <script>
+        ////créer ma variable Hub
+        const Th = $.connection.testHub;
+        // Config le logging
+        $.connection.logging = true;
+        //abonnement aux méthode client
+        Th.client.helloClient = fnHello; //func javascript définie plus bas
+        Th.client.broadcastMessage = p;
+
+        function sendjs()
+        {
+            var msg = document.getElementById("message").value;
+            var user = document.getElementById("user").value;
+            //fois envoyer au serveur il fais la lamda qui recupere la div 
+            //pour que quand j ajour un message le scorl descant automatiquement 
+            
+            Th.server.send(user, msg);//.done(() => self.location.href = "#fintchat" );
+            $("#message").val("");
+            
+        }
+        //lancer la connection
+        $.connection.hub.start()
+            .done // SI tout vas bien
+            (function (data) {
+                
+                console.log("=> SignalR connected")
+                console.log("=> Id de connection :" + data.id);
+
+                Th.server.hello("je suis passé par le serveur");
+                $("#user").val(prompt("Entre votre pseudo", ""));
+            })
+            .fail // Si erreur
+            (function (messageError) {
+                console.log("=> SignalR erreur")
+                console.log("=> erreur" + messageError)
+            });
+       
+
+        function fnHello(message) {
+            console.log("=>" + message);
+        };
+
+        function p(user, message) {
+            var ul = document.getElementById("messagesL");
+            var li = document.createElement("li");            
+            li.append(user+" : "+message);
+            ul.appendChild(li);
+            //quand il rajoute le tex qu il a recuperer du serveur apres il scroll la div 
+            //quand j ajour un message le scorl descant automatiquement 
+            self.location.href = "#fintchat" 
+        };
+
+
+        
+    </script>
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tchat Addiction-Game</title>
+    <link rel="stylesheet" href="~/Style/StyleSheet1.css" />
+</head>
+<body>
+    <h1 style=""> Tchat Addiction-Game   </h1>
+    <div class="row">
+        <div class="col-6">
+            <ul id="messagesL"></ul>
+        </div>
+        <div id="fintchat"></div>
+    </div>
+
+    <div>
+
+        <input type="hidden" id="user" />
+        <input type="text" id="message" />
+        <input type="button" id="btn" value="Enter" onclick="sendjs()" />
+        
+    </div>
+    
+
+</body>
+</html>

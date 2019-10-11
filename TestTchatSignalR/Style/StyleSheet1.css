@@ -1,0 +1,28 @@
+﻿body {
+    
+    Background: #9d8572;
+}
+#message {
+    border-color: #34969d;
+}
+
+#btn {
+    background: #34969d;
+}
+
+
+
+
+.row {
+    background: #b09c8d;
+    border: ridge;
+    min-height: 300px;
+    height: 300px;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+#user {
+    text-decoration-style: double;
+    color: #34969d;
+}
