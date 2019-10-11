@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Tchat Addiction-Game";
+    ViewBag.Title = "💩 Group Dar Dar 💩";
 }
 
 
@@ -18,15 +18,23 @@
         Th.client.helloClient = fnHello; //func javascript définie plus bas
         Th.client.broadcastMessage = p;
 
-        function sendjs()
-        {
-            var msg = document.getElementById("message").value;
-            var user = document.getElementById("user").value;
-            //fois envoyer au serveur il fais la lamda qui recupere la div 
-            //pour que quand j ajour un message le scorl descant automatiquement 
+        function sendjs() {
+            if (document.getElementById("message").value == "")
+            {
+
+
+            }
+            else {
+                var msg = document.getElementById("message").value;
+                var user = document.getElementById("user").value;
+                var color = document.getElementById("color").value;
+                //fois envoyer au serveur il fais la lamda qui recupere la div 
+                //pour que quand j ajour un message le scorl descant automatiquement 
+
+                Th.server.send(user, msg,color);//.done(() => self.location.href = "#fintchat" );
+                $("#message").val("");
+            }
             
-            Th.server.send(user, msg);//.done(() => self.location.href = "#fintchat" );
-            $("#message").val("");
             
         }
         //lancer la connection
@@ -51,10 +59,10 @@
             console.log("=>" + message);
         };
 
-        function p(user, message) {
+        function p(user, message,color) {
             var ul = document.getElementById("messagesL");
             var li = document.createElement("li");            
-            li.append(user+" : "+message);
+            li.innerHTML = ("<span style='color:"+color+"'>"+user+"</span>"+" : "+message);
             ul.appendChild(li);
             //quand il rajoute le tex qu il a recuperer du serveur apres il scroll la div 
             //quand j ajour un message le scorl descant automatiquement 
@@ -68,11 +76,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tchat Addiction-Game</title>
+    <title>💩 Group Dar Dar 💩</title>
     <link rel="stylesheet" href="~/Style/StyleSheet1.css" />
 </head>
 <body>
-    <h1 style=""> Tchat Addiction-Game   </h1>
+    <h1 style="">💩 Group Dar Dar 💩 </h1>
     <div class="row">
         <div class="col-6">
             <ul id="messagesL"></ul>
@@ -85,6 +93,9 @@
         <input type="hidden" id="user" />
         <input type="text" id="message" />
         <input type="button" id="btn" value="Enter" onclick="sendjs()" />
+        <p>couleur du pseudo : </p>
+        @*un input pour pouvoir choisir une couleur qui est reprise dans la fonction send()*@
+        <input type="color" id="color"/>
         
     </div>
     

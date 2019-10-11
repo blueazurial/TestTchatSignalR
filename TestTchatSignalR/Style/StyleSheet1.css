@@ -1,6 +1,8 @@
-﻿body {
-    
-    Background: #9d8572;
+﻿h1{
+    color:white;
+}
+body {
+    Background: #1a1a1a;
 }
 #message {
     border-color: #34969d;
@@ -14,7 +16,7 @@
 
 
 .row {
-    background: #b09c8d;
+    background: #a3dbda;
     border: ridge;
     min-height: 300px;
     height: 300px;
@@ -22,7 +24,7 @@
     overflow-y: scroll;
 }
 
-#user {
+.user1 {
     text-decoration-style: double;
     color: #34969d;
 }

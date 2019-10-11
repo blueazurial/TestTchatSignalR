@@ -15,10 +15,10 @@ namespace TestTchatSignalR.hub
             //caller = il n y a que celui qui a appeler la fonction qui recois le message
             Clients.Caller.helloClient(message);
         }
-        public void Send(string name, string message)
+        public void Send(string name, string message,string color)
         {
             //all tous le monde recois le message 
-            Clients.All.broadcastMessage(name, message);
+            Clients.All.broadcastMessage(name, message, color);
         }
         
     }
